@@ -6,46 +6,122 @@ on:
     branches:
       - main
 
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 env:
+  CONDA_CACHE_NUMBER: 0
   BASE_URL: /${{ github.event.repository.name }}
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
-  deploy-book:
+  build:
     runs-on: ubuntu-latest
-    # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-    permissions:
-      pages: write
-      id-token: write
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
       - uses: actions/checkout@v4
-
-      # Install dependencies
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v5
+      - name: initialize conda
+        uses: conda-incubator/setup-miniconda@v3
         with:
-          python-version: "3.11"
-          cache: pip # Implicitly depends upon requirements.txt
+          activate-environment: skypallet-book
+          auto-activate-base: false
+          use-mamba: true
+          miniforge-version: latest
+      - name: restore conda environment from cache
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ env.CONDA }}/envs
+          key:
+            conda-${{ runner.os }}--${{ runner.arch }}--${{ hashFiles('skypallet-book.yml') }}-${{ env.CONDA_CACHE_NUMBER }}
+        id: conda_cache
+      - name: install conda environment
+        run: mamba env update -n skypallet-book -f skypallet-book.yml
+        if: steps.conda_cache.outputs.cache-hit != 'true'
+        id: install_conda_env
+      - name: upload conda environment to cache
+        uses: actions/cache/save@v4
+        if: steps.install_conda_env.outcome == 'success'
+        with:
+          path: ${{ env.CONDA }}/envs
+          key:
+            conda-${{ runner.os }}--${{ runner.arch }}--${{ hashFiles('skypallet-book.yml') }}-${{ env.CONDA_CACHE_NUMBER }}
+      # Install dependencies
+      #- name: Set up Python 3.11
+      #  uses: actions/setup-python@v5
+      #  with:
+      #    python-version: "3.11"
+      #    cache: pip # Implicitly depends upon requirements.txt
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
+      #- name: Install dependencies
+      #  run: pip install -r skypallet-book.yml
+      - name: setting up notebook execution cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            skypallet-book/_build/.jupyter_cache
+          key: notebooks-${{ runner.os }}-${{ hashFiles('skypallet-book.yml') }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            notebooks-${{ runner.os }}-${{ hashFiles('skypallet-book.yml') }}-${{ github.run_id }}-
+            notebooks-${{ runner.os }}-${{ hashFiles('skypallet-book.yml') }}-
+      
       # Build the book
-      - name: Build the book
-        run: jupyter-book build skypallet-book
+      - name: build book
+        run: |
+          conda activate skypallet-book
+          conda info
+          jupyter-book build -W -n --keep-going skypallet-book
 
+      - name: save execution cache
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: |
+            skypallet-book/_build/.jupyter_cache
+          key: notebooks-${{ runner.os }}-${{ hashFiles('skypallet-book.yml') }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Archive build artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: html
+          path: |
+            skypallet-book/_build/html
+      
       # Upload the book's HTML as an artifact
+      #- name: Upload artifact
+      #  uses: actions/upload-pages-artifact@v3
+      #  with:
+      #    path: "skypallet-book/_build/html"
+  
+  publish:
+    needs: build
+    if: "always() && github.repository_owner == 'tim-carlsen' && (github.event_name == 'schedule' || (github.event_name == 'push' && github.ref == 'refs/heads/main'))"
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+    # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+    concurrency:
+      group: "pages"
+      cancel-in-progress: false
+    steps:
+      - name: Download compiled book
+        uses: actions/download-artifact@v4
+        with:
+          name: html
+          path: html
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "skypallet-book/_build/html"
-
-      # Deploy the book's HTML to GitHub Pages
+          # Upload entire repository
+          path: 'html'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
