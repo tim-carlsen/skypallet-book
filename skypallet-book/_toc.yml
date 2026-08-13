@@ -3,7 +3,20 @@
 
 format: jb-book
 root: intro
-chapters:
-- file: markdown
-- file: notebooks
-- file: markdown-notebooks
+parts:
+  - caption: EBT2026
+    chapters:
+    - file: quicklooks
+      title: Live data
+  - caption: Skypallet
+    chapters:
+    - file: skypallet
+      sections:
+      - file: skypallet/mrr
+      - file: skypallet/ceilometer
+      - file: skypallet/radiometer
+      - file: skypallet/all-sky-camera
+  - caption: Polhavet 2050
+    chapters:
+    - url: https://uit.no/arcticocean2050
+      title: Polhavet overview
