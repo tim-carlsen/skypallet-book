@@ -22,15 +22,23 @@ mrr_daily_aggregate.py
 Combine hourly MRR netcdf files into daily netcdf files adding some metadata
 
 """
+import numpy as np
+# Workaround for depecated Numpy aliases used by some libraries (e.g. xarray/dask)
+if not hasattr(np, "float"):
+    np.float = float
+if not hasattr(np, "int"):
+    np.int = int
+if not hasattr(np, "bool"):
+    np.bool = bool
 
 import os
 import glob
 import datetime as dt
 import xarray as xr
-import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 from skypallet_config import load_config
+
 
 # %%
 
@@ -38,7 +46,7 @@ from skypallet_config import load_config
 # 1. Load configuration
 # --------------------------------------------------------------------
 HERE = os.path.dirname(__file__)
-cfg_path = os.path.join(HERE, "skypallet_config_mac.yml")
+cfg_path = os.path.join(HERE, "skypallet_config.yml")
 cfg = load_config(cfg_path)
 
 CAMPAIGN = cfg["campaign"]

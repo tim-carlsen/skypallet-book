@@ -1,10 +1,10 @@
 campaign: "EBT2026"
 
 paths:
-  nas_root: "/Volumes/campaigns/EBT2026"
+  nas_root: '\\10.3.64.138\campaigns'
 
 general:
-  days_back: 50
+  days_back: 2
   engine_read: "netcdf4"
   engine_write: "netcdf4"
 

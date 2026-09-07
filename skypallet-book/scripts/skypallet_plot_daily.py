@@ -31,7 +31,7 @@ def parse_date_arg():
 
 
 def main():
-    cfg_path = os.path.join(HERE, "skypallet_config_mac.yml")
+    cfg_path = os.path.join(HERE, "skypallet_config.yml")
     cfg = load_config(cfg_path)
 
     # Use the CLI argument or default to yesterday

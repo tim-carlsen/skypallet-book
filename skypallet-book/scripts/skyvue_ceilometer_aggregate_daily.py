@@ -45,7 +45,7 @@ from pathlib import Path
 # 1. Load configuration
 # --------------------------------------------------------------------
 HERE = os.path.dirname(__file__)
-cfg_path = os.path.join(HERE, "skypallet_config_mac.yml")
+cfg_path = os.path.join(HERE, "skypallet_config.yml")
 cfg = load_config(cfg_path)
 
 CAMPAIGN = cfg["campaign"]

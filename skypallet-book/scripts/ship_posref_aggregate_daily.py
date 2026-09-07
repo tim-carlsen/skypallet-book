@@ -56,7 +56,7 @@ from skypallet_config import load_config
 
 # %%
 HERE = os.path.dirname(__file__)
-cfg_path = os.path.join(HERE, "skypallet_config_mac.yml")
+cfg_path = os.path.join(HERE, "skypallet_config.yml")
 cfg = load_config(cfg_path)
 
 # %%

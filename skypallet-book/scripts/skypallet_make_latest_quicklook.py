@@ -11,7 +11,7 @@ QUICKLOOK_DIR = os.path.join(REPO_ROOT, "quicklooks")
 os.makedirs(QUICKLOOK_DIR, exist_ok=True)
 
 def main():
-    cfg_path = os.path.join(HERE, "skypallet_config_mac.yml")
+    cfg_path = os.path.join(HERE, "skypallet_config.yml")
     cfg = load_config(cfg_path)
 
     now = dt.datetime.utcnow()
