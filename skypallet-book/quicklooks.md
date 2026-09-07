@@ -2,7 +2,7 @@
 
 ```{note}
 Last update from ship:
-```{literalinclude} quicklooks/heartbeat.txt``
+```{literalinclude} quicklooks/heartbeat.txt
 :language: none
 ```
 
