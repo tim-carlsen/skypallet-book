@@ -5,6 +5,9 @@ REM === Hourly aggregation + latest quicklook + git push ===
 REM 0) Git: go to repo root
 cd /d C:\Users\field_user\Documents\campaigns\EBT2026\skypallet-book
 
+REM 0.1) Logging
+echo [%DATE% %TIME%] Starting hourly run >> skypallet_hourly.log
+
 REM 1) Update from remote before making any changes
 git pull --rebase
 
@@ -36,3 +39,6 @@ git commit -m "Update latest quicklook %DATE% %TIME%" || goto :eof
 
 REM 9) Push
 git push origin main
+
+:done
+echo [%DATE% %TIME%] Finished hourly run >> skypallet_hourly.log
