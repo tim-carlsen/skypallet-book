@@ -1,7 +1,5 @@
 # Live data portal
 
-```{note}
-Last update from ship:
 ```{literalinclude} quicklooks/heartbeat.txt
 :language: none
 ```
