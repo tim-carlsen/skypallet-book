@@ -28,7 +28,9 @@ REM 5) Latest quicklook (skypallet_quicklook_latest.png)
 python scripts\skypallet_make_latest_quicklook.py
 
 REM 6) Heartbeat: write timestamp file (visible on Live data page)
-echo Last successful hourly update from ship: %DATE% %TIME% > quicklooks/heartbeat.txt
+for /f %%d in ('powershell -NoProfile -Command "(Get-Date).ToString(\"dd/MM/yyyy\")"') do set SHIPDATE_DMY=%%d
+for /f %%t in ('powershell -NoProfile -Command "(Get-Date).ToString(\"HH:mm\")"') do set SHIPTIME=%%t
+echo Last successful update from ship: %SHIPDATE_DMY% %SHIPTIME% > quicklooks/heartbeat.txt
 
 REM 7) Git: go back to repo root
 cd /d C:\Users\field_user\Documents\campaigns\EBT2026\skypallet-book
