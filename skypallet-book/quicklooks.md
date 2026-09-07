@@ -1,5 +1,5 @@
-Content in Jupyter Book
-=======================
+# Live data portal
 
-There are many ways to write content in Jupyter Book. This short section
-covers a few tips for how to do so.
+```{image} quicklooks/skypallet_quicklook_latest.png
+:width: 100%
+```

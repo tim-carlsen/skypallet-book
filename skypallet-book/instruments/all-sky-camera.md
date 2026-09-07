@@ -1,0 +1,3 @@
+# All-sky camera
+
+To characterise the cloud scene and weather conditions, continuous all-sky images (~10 min interval) will be captured with the ASI 16 All Sky Imager from EKO/Schreder. The camera is equipped with a fish-eye lens (180° field of view) and auxiliary sensors for temperature and humidity observations. Besides providing a qualitative framework of the meteorological conditions throughout the cruise, the all-sky images can also be used quantitatively to estimate cloud coverage, cloud type (low clouds, high clouds), cloud base height, and even cloud motion vectors (utilising consecutive images). The camera is complemented with a peripheral broadband radiometer (measuring downward solar radiation).

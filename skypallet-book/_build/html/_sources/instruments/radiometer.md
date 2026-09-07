@@ -1,0 +1,3 @@
+# Broadband radiometer
+
+We measure both downwelling and upwelling solar (300-2800 nm) and terrestrial (4.5-42 µm) broadband radiation with the CNR4 Net Radiometer from Kipp&Zonen. It consists of a pair of pyranometers and pyrgeometers and integrated temperature sensors to correct the terrestrial radiation measurements for the temperature of the instrument housing. A ventilation unit provides airflow over the domes and windows to minimize dew formatio, while an integrated heater reduces frost buildup. We are utilizing these broadband radiometers to characterize the radiative effect of clouds, ultimately connecting it to the cloud microphysical properties.

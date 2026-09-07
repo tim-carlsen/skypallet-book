@@ -1,0 +1,35 @@
+categories:
+  ec_under:
+    long_name: "EarthCARE underpass"
+    tier: "a"
+  liquid:
+    long_name: "Liquid cloud measurements"
+    tier: "b"
+  mpc:
+    long_name: "Mixed-phase cloud measurements"
+    tier: "c"
+  cirrus:
+    long_name: "Cirrus cloud measurements"
+    tier: "d"
+  marine_sc:
+    long_name: "Marine stratocumulus"
+    tier: "e"
+  melt_layer:
+    long_name: "Melting layer"
+    tier: "f"
+  precip:
+    long_name: "Measured rain/snow"
+    tier: "g"
+  north_pole:
+    long_name: "North Pole"
+    tier: "g"
+  bouvet:
+    long_name: "Bouvet Island"
+    tier: "g"
+  insitu_aerosol:
+    long_name: "In-situ aerosol measurements"
+    tier: "c"
+  sea_ice:
+    long_name: "Measurements in/over sea ice"
+    tier: "d"
+

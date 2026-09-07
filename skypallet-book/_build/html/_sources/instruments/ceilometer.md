@@ -1,0 +1,3 @@
+# Ceilometer
+
+We utilize the Campbell SkyVue PRO with depolarization capabilities to measure profiles of attenuated backscatter and depolarisation ratio from the surface up to about 8000 m altitude. This active remote sensing enables us to detect aerosol and cloud layers and primarily retrieve cloud base height and cloud phase (liquid or ice). The ceilometer will primarily be used in synergy with the micro rain radar for microphysical cloud and precipitation retrievals throughout the cruise.

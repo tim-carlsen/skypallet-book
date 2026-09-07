@@ -1,0 +1,12 @@
+campaign: "EBT2026"
+
+paths:
+  nas_root: "/Volumes/campaigns/"
+
+general:
+  days_back: 4
+  engine_read: "netcdf4"
+  engine_write: "netcdf4"
+
+ship:
+  cruise_start: "2026-07-23T12:00:00"

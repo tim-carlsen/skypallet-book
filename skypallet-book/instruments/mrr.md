@@ -1,0 +1,3 @@
+# Micro-rain radar
+
+Vertical profiles of radar reflectivity, doppler velocity, spectral width and Doppler spectra are measured with the MRR-PRO micro rain radar by METEK. From these measurements we can, amongst others, retrieve droplet size distributions, rain rates and liquid water content profiles. The MRR operates at 24 GHz (K band) and is thus mainly sensitive to larger precipitation particles, but together with the data from the ceilometers will also be used for synergistic cloud phase retrievals. The doppler information will also help to detect phase changes in the precipitation (melting layers).

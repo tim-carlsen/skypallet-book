@@ -3,17 +3,18 @@ channels:
   - defaults
   - conda-forge
 dependencies:
-  - python=3.8
+  - python=3.10
   - cartopy
-  - jupyter-book
   - matplotlib
   - netcdf4
   - pandas
   - xarray
+  - windrose
   - pip:
-    - jupyter-book
+    - "jupyter-book<0.16"
     - cookiecutter
     - pytest
     - black
     - ghp-import
+    - orcestra
 prefix: /opt/miniconda3/envs/skypallet-book

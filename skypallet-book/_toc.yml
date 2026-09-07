@@ -8,14 +8,22 @@ parts:
     chapters:
     - file: quicklooks
       title: Live data
+    - file: status
+      title: Cruise status
+    - file: logbook
+      title: Logbook
+    - file: archive
+      title: Archive
   - caption: Skypallet
     chapters:
     - file: skypallet
       sections:
-      - file: skypallet/mrr
-      - file: skypallet/ceilometer
-      - file: skypallet/radiometer
-      - file: skypallet/all-sky-camera
+      - file: instruments/mrr
+      - file: instruments/ceilometer
+      - file: instruments/radiometer
+      - file: instruments/all-sky-camera
+    - file: data
+      title: Data access
   - caption: Polhavet 2050
     chapters:
     - url: https://uit.no/arcticocean2050
