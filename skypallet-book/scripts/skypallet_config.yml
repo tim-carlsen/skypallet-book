@@ -4,7 +4,7 @@ paths:
   nas_root: '\\10.3.64.138\campaigns'
 
 general:
-  days_back: 2
+  days_back: 1
   engine_read: "netcdf4"
   engine_write: "netcdf4"
 
