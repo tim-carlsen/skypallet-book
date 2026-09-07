@@ -8,10 +8,6 @@ parts:
     chapters:
     - file: quicklooks
       title: Live data
-    #- file: status
-    #  title: Cruise status
-    #- file: logbook
-    #  title: Logbook
     - file: archive
       title: Archive
   - caption: Skypallet

@@ -30,20 +30,25 @@ REM 6) Daily archive quicklook for yesterday
 REM    This produces quicklooks\archive\YYYYMMDD_skypallet_quicklook.png
 python scripts\skypallet_plot_daily.py %YDAY%
 
-REM 7) Git: go to repo root
+REM 7) Regenerate archive.md based on quicklooks/archive/ files
+python scripts\update_archive_md.py
+
+
+REM 8) Git: go to repo root
 cd /d C:\Users\field_user\Documents\campaigns\EBT2026\skypallet-book
 
-REM 8) Stage yesterday's archive quicklook
+REM 9) Stage yesterday's archive quicklook
 REM    skypallet_plot_daily.py creates: quicklooks\archive\YYYYMMDD_skypallet_quicklook.png
 REM    Repo-root path: skypallet-book\quicklooks\archive\YYYYMMDD_skypallet_quicklook.png
 for /f %%j in ('powershell -NoProfile -Command "(Get-Date).AddDays(-1).ToString(\"yyyyMMdd\")"') do set YDAY_COMPACT=%%j
 
 git add skypallet-book\quicklooks\archive\%YDAY_COMPACT%_skypallet_quicklook.png
+git add skypallet-book\archive.md
 
-REM 9) Commit (if there is a change); otherwise exit quietly
-git commit -m "Add daily archive quicklook for %YDAY% (%DATE% %TIME%)" || goto :eof
+REM 10) Commit (if there is a change); otherwise exit quietly
+git commit -m "Add daily archive quicklook and update archive.md for %YDAY% (%DATE% %TIME%)" || goto :done
 
-REM 10) Push
+REM 11) Push
 git push origin main
 
 :done
