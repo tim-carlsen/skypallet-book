@@ -76,6 +76,14 @@ jobs:
           conda info
           jupyter-book build -W -n --keep-going skypallet-book
 
+      - name: copy quicklooks archive into built site
+        run: |
+          # Only copy if the archive directory exists
+          if [ -d "skypallet-book/quicklooks/archive" ]; then
+            mkdir -p skypallet-book/_build/html/quicklooks
+            cp -r skypallet-book/quicklooks/archive skypallet-book/_build/html/quicklooks/
+          fi
+
       - name: save execution cache
         uses: actions/cache/save@v4
         if: always()
