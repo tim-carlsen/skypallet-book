@@ -102,23 +102,40 @@ def degmin_to_decimal(coord_str):
     Convert a 'DDDMM.mmm H' or 'DDMM.mmm H' style coordinate string
     to decimal degrees. Example:
         '7802.345 N' -> 78 + 2.345/60.
+
+    If coord_str is missing or malformed, return np.nan instead of raising.
+    This prevents whole files from being skipped due to a few bad rows.
     """
-    if isinstance(coord_str, (float, int)):
-        # in case value already numeric with hemisphere separate, adapt if needed
+    # Handle missing / NaN explicitly
+    if coord_str is None:
+        return np.nan
+    if isinstance(coord_str, float) and np.isnan(coord_str):
+        return np.nan
+
+    # Ensure string representation
+    if not isinstance(coord_str, str):
         coord_str = str(coord_str)
 
-    parts = str(coord_str).strip().split()
+    parts = coord_str.strip().split()
     if len(parts) != 2:
-        raise ValueError(f"Unexpected coordinate format: {coord_str}")
+        # Unexpected format -> mark this row as missing
+        return np.nan
 
     value_str, hemi = parts
-    value = float(value_str)
+
+    # Value must be convertible to float
+    try:
+        value = float(value_str)
+    except ValueError:
+        return np.nan
+
     degrees = int(value // 100)
     minutes = value - 100 * degrees
     decimal = degrees + minutes / 60.0
 
     if hemi.upper() in ["S", "W"]:
         decimal = -decimal
+
     return decimal
 
 
@@ -189,7 +206,7 @@ def read_posref_file(path):
         errors="coerce",
     )
 
-    # Convert coordinates
+    # Convert coordinates (robust to NaN / malformed strings)
     df["lat"] = df["Latitude"].apply(degmin_to_decimal)
     df["lon"] = df["Longitude"].apply(degmin_to_decimal)
 
@@ -213,6 +230,11 @@ def read_posref_file(path):
 
     # Drop rows with missing datetime
     df = df.dropna(subset=["datetime"])
+
+    # Optionally: drop rows where both lat and lon are missing, but keep rows
+    # that have at least one of them (or only met data, if you prefer)
+    # Uncomment if desired:
+    # df = df.dropna(subset=["lat", "lon"], how="all")
 
     return df
 
