@@ -15,13 +15,14 @@ Select a date to view the archived quicklook.
     <option value="20260904">2026-09-04</option>
     <option value="20260905">2026-09-05</option>
     <option value="20260906">2026-09-06</option>
-    <option value="20260907" selected>2026-09-07</option>
+    <option value="20260907">2026-09-07</option>
+    <option value="20260908" selected>2026-09-08</option>
   </select>
 </div>
 
 <div style="margin-top: 1em;">
   <img id="ql-image"
-       src="quicklooks/archive/20260907_skypallet_quicklook.png"
+       src="quicklooks/archive/20260908_skypallet_quicklook.png"
        style="width: 100%; border: 1px solid #ccc;"
        alt="Skypallet quicklook" />
 </div>
